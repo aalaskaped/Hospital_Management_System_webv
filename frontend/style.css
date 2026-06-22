@@ -1,0 +1,519 @@
+/* ============================================
+   GENERAL STYLES - Apply to all pages
+   ============================================ */
+
+/* Basic styling for the entire page */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ============================================
+   NAVBAR STYLES
+   ============================================ */
+
+/* Main navbar container */
+.navbar {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar inner container */
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Navbar title/logo */
+.navbar-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Navbar menu styling */
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+/* Navbar links */
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+/* Navbar link hover effect */
+.navbar-link:hover {
+    background-color: #2563eb;
+}
+
+/* Active link styling */
+.navbar-link.active {
+    background-color: #3b82f6;
+    font-weight: bold;
+}
+
+/* ============================================
+   MAIN CONTAINER STYLES
+   ============================================ */
+
+/* Main container for all pages */
+.main-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Welcome section on home page */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color: #f0f4f8;
+    border-radius: 10px;
+}
+
+.welcome-section h2 {
+    font-size: 32px;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Page title styling */
+.page-title {
+    font-size: 32px;
+    color: #1e3a8a;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ============================================
+   DASHBOARD CARDS STYLES
+   ============================================ */
+
+/* Container for all cards */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Individual card styling */
+.card {
+    background-color: #f0f4f8;
+    border: 2px solid #1e3a8a;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+/* Card hover effect */
+.card:hover {
+    box-shadow: 0 5px 15px rgba(30, 58, 138, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Card heading */
+.card h3 {
+    font-size: 18px;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+/* Large number in card */
+.card-number {
+    font-size: 40px;
+    font-weight: bold;
+    color: #3b82f6;
+    margin: 10px 0;
+}
+
+/* Small description text in card */
+.card-description {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+
+/* Form section container */
+.form-section {
+    background-color: #f0f4f8;
+    border: 2px solid #1e3a8a;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.form-section h3 {
+    font-size: 22px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+/* Main form styling */
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* Form group (each input field) */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form labels */
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Form input fields */
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+/* Input focus effect */
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+/* Submit button styling */
+.btn {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    grid-column: span 2;
+    margin-top: 10px;
+}
+
+/* Button hover effect */
+.btn:hover {
+    background-color: #3b82f6;
+    transform: scale(1.05);
+}
+
+/* Delete button styling */
+.btn-delete {
+    background-color: #dc2626;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Delete button hover effect */
+.btn-delete:hover {
+    background-color: #b91c1c;
+}
+
+/* ============================================
+   TABLE STYLES
+   ============================================ */
+
+/* Table section container */
+.table-section {
+    background-color: #f0f4f8;
+    border: 2px solid #1e3a8a;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.table-section h3 {
+    font-size: 22px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+/* Table styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table header styling */
+.table thead tr {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.table thead th {
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+    border: 1px solid #ccc;
+}
+
+/* Table body row styling */
+.table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Table cells */
+.table tbody td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+/* Table row hover effect */
+.table tbody tr:hover {
+    background-color: #e8eef7;
+}
+
+/* Alternate row colors for better readability */
+.table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+/* ============================================
+   SEARCH STYLES
+   ============================================ */
+
+/* Search section styling */
+.search-section {
+    background-color: #f0f4f8;
+    border: 2px solid #1e3a8a;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.search-section h3 {
+    font-size: 22px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+/* Search group styling */
+.search-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Search input field */
+.search-group input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Search result box */
+.search-result {
+    margin-top: 20px;
+}
+
+.search-result-box {
+    background-color: white;
+    border: 1px solid #3b82f6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.search-result-box p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+/* ============================================
+   BILLING SECTION STYLES
+   ============================================ */
+
+/* Bill info section */
+.bill-info-section {
+    background-color: #f0f4f8;
+    border: 2px solid #1e3a8a;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.bill-info-section h3 {
+    font-size: 22px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+/* Bill box styling */
+.bill-box {
+    background-color: white;
+    border: 3px solid #3b82f6;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+.bill-box p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+/* ============================================
+   COMPARE BILLS SECTION STYLES
+   ============================================ */
+
+/* Compare section styling */
+.compare-section {
+    background-color: #f0f4f8;
+    border: 2px solid #1e3a8a;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.compare-section h3 {
+    font-size: 22px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+/* Compare form styling */
+.compare-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.compare-form .btn {
+    grid-column: span 2;
+}
+
+/* Compare result styling */
+.compare-result {
+    margin-top: 20px;
+}
+
+.compare-result-box {
+    background-color: white;
+    border: 1px solid #3b82f6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.compare-result-box p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* For medium screens (tablets) */
+@media (max-width: 768px) {
+    /* Stack cards in 2 columns instead of 4 */
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Stack form inputs in 1 column instead of 2 */
+    .form {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        grid-column: span 1;
+    }
+
+    /* Stack navbar menu vertically */
+    .navbar-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Stack compare form inputs vertically */
+    .compare-form {
+        grid-template-columns: 1fr;
+    }
+
+    .compare-form .btn {
+        grid-column: span 1;
+    }
+}
+
+/* For small screens (phones) */
+@media (max-width: 480px) {
+    /* Stack cards in 1 column */
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* Reduce font sizes */
+    .page-title {
+        font-size: 24px;
+    }
+
+    .navbar-title {
+        font-size: 18px;
+    }
+
+    .navbar-link {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    /* Hide some table columns on very small screens */
+    .table tbody tr {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar starts here -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <h1 class="navbar-title">Hospital Management System</h1>
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="navbar-link active">Home</a></li>
+                <li><a href="doctors.html" class="navbar-link">Doctors</a></li>
+                <li><a href="patients.html" class="navbar-link">Patients</a></li>
+                <li><a href="appointments.html" class="navbar-link">Appointments</a></li>
+                <li><a href="billing.html" class="navbar-link">Billing</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Navbar ends here -->
+
+    <!-- Main container starts here -->
+    <div class="main-container">
+        <!-- Welcome section starts here -->
+        <div class="welcome-section">
+            <h2>Welcome to Hospital Management System</h2>
+            <p>Manage doctors, patients, appointments, and billing all in one place</p>
+        </div>
+        <!-- Welcome section ends here -->
+
+        <!-- Dashboard cards section starts here -->
+        <div class="dashboard-cards">
+            <!-- Total Doctors card -->
+            <div class="card">
+                <h3>Total Doctors</h3>
+                <p class="card-number" id="totalDoctorsCard">0</p>
+                <p class="card-description">Doctors in the system</p>
+            </div>
+            <!-- Total Doctors card ends here -->
+
+            <!-- Total Patients card -->
+            <div class="card">
+                <h3>Total Patients</h3>
+                <p class="card-number" id="totalPatientsCard">0</p>
+                <p class="card-description">Patients in the system</p>
+            </div>
+            <!-- Total Patients card ends here -->
+
+            <!-- Total Appointments card -->
+            <div class="card">
+                <h3>Total Appointments</h3>
+                <p class="card-number" id="totalAppointmentsCard">0</p>
+                <p class="card-description">Appointments scheduled</p>
+            </div>
+            <!-- Total Appointments card ends here -->
+
+            <!-- Total Bills card -->
+            <div class="card">
+                <h3>Total Bills</h3>
+                <p class="card-number" id="totalBillsCard">0</p>
+                <p class="card-description">Bills generated</p>
+            </div>
+            <!-- Total Bills card ends here -->
+        </div>
+        <!-- Dashboard cards section ends here -->
+    </div>
+    <!-- Main container ends here -->
+
+    <!-- Script file -->
+    <script src="script.js"></script>
+    <script>
+        // Update dashboard cards when page loads
+        function updateDashboard() {
+            // Get the length of each array and display on cards
+            document.getElementById('totalDoctorsCard').textContent = doctorsArray.length;
+            document.getElementById('totalPatientsCard').textContent = patientsArray.length;
+            document.getElementById('totalAppointmentsCard').textContent = appointmentsArray.length;
+            document.getElementById('totalBillsCard').textContent = billsArray.length;
+        }
+
+        // Call updateDashboard when page loads
+        window.addEventListener('load', updateDashboard);
+    </script>
+</body>
+</html>

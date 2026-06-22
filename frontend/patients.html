@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients - Hospital Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar starts here -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <h1 class="navbar-title">Hospital Management System</h1>
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="navbar-link">Home</a></li>
+                <li><a href="doctors.html" class="navbar-link">Doctors</a></li>
+                <li><a href="patients.html" class="navbar-link active">Patients</a></li>
+                <li><a href="appointments.html" class="navbar-link">Appointments</a></li>
+                <li><a href="billing.html" class="navbar-link">Billing</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Navbar ends here -->
+
+    <!-- Main container starts here -->
+    <div class="main-container">
+        <!-- Page title starts here -->
+        <h2 class="page-title">Patient Management</h2>
+        <!-- Page title ends here -->
+
+        <!-- Add Patient section starts here -->
+        <div class="form-section">
+            <h3>Add New Patient</h3>
+            
+            <!-- Form for adding patient -->
+            <form id="addPatientForm" class="form">
+                <!-- Patient ID input -->
+                <div class="form-group">
+                    <label for="patientId">Patient ID:</label>
+                    <input type="text" id="patientId" placeholder="Enter Patient ID" required>
+                </div>
+
+                <!-- Patient Name input -->
+                <div class="form-group">
+                    <label for="patientName">Name:</label>
+                    <input type="text" id="patientName" placeholder="Enter Patient Name" required>
+                </div>
+
+                <!-- Patient Age input -->
+                <div class="form-group">
+                    <label for="patientAge">Age:</label>
+                    <input type="number" id="patientAge" placeholder="Enter Age" required>
+                </div>
+
+                <!-- Patient Disease input -->
+                <div class="form-group">
+                    <label for="patientDisease">Disease:</label>
+                    <input type="text" id="patientDisease" placeholder="Example: Fever, Cough" required>
+                </div>
+
+                <!-- Initial Bill input -->
+                <div class="form-group">
+                    <label for="patientInitialBill">Initial Bill:</label>
+                    <input type="number" id="patientInitialBill" placeholder="Enter Initial Bill in Rupees" required>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn">Add Patient</button>
+            </form>
+            <!-- Form ends here -->
+        </div>
+        <!-- Add Patient section ends here -->
+
+        <!-- Search Patient section starts here -->
+        <div class="search-section">
+            <h3>Search Patient</h3>
+            <div class="search-group">
+                <input type="text" id="searchPatientId" placeholder="Enter Patient ID to search">
+                <button class="btn" onclick="searchPatient()">Search</button>
+            </div>
+            <div id="searchPatientResult" class="search-result"></div>
+        </div>
+        <!-- Search Patient section ends here -->
+
+        <!-- View Patients section starts here -->
+        <div class="table-section">
+            <h3>All Patients</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Disease</th>
+                        <th>Initial Bill</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="patientsTableBody">
+                    <!-- Patients will be added here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <!-- View Patients section ends here -->
+    </div>
+    <!-- Main container ends here -->
+
+    <!-- Script files -->
+    <script src="script.js"></script>
+    <script>
+        // Function to display all patients in the table
+        function displayPatients() {
+            let tableBody = document.getElementById('patientsTableBody');
+            tableBody.innerHTML = ''; // Clear the table first
+
+            // Loop through all patients and add them to the table
+            for (let i = 0; i < patientsArray.length; i++) {
+                let patient = patientsArray[i];
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${patient.id}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.age}</td>
+                    <td>${patient.disease}</td>
+                    <td>${patient.initialBill}</td>
+                    <td>
+                        <button class="btn-delete" onclick="deletePatient('${patient.id}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Function to add a new patient
+        function addNewPatient(event) {
+            event.preventDefault(); // Stop form from refreshing the page
+
+            // Get values from form
+            let patientId = document.getElementById('patientId').value;
+            let patientName = document.getElementById('patientName').value;
+            let patientAge = document.getElementById('patientAge').value;
+            let patientDisease = document.getElementById('patientDisease').value;
+            let patientBill = document.getElementById('patientInitialBill').value;
+
+            // Create a new patient object
+            let newPatient = {
+                id: patientId,
+                name: patientName,
+                age: patientAge,
+                disease: patientDisease,
+                initialBill: patientBill
+            };
+
+            // Add the new patient to the array
+            patientsArray.push(newPatient);
+
+            // Clear the form
+            document.getElementById('addPatientForm').reset();
+
+            // Show a message
+            alert('Patient added successfully!');
+
+            // Update the table
+            displayPatients();
+        }
+
+        // Function to delete a patient
+        function deletePatient(patId) {
+            // Ask user for confirmation
+            let confirmDelete = confirm('Are you sure you want to delete this patient?');
+            
+            if (confirmDelete) {
+                // Find the patient and remove from array
+                for (let i = 0; i < patientsArray.length; i++) {
+                    if (patientsArray[i].id === patId) {
+                        patientsArray.splice(i, 1); // Remove patient at position i
+                        alert('Patient deleted successfully!');
+                        displayPatients(); // Update the table
+                        return;
+                    }
+                }
+            }
+        }
+
+        // Function to search for a patient
+        function searchPatient() {
+            let searchId = document.getElementById('searchPatientId').value;
+            let resultDiv = document.getElementById('searchPatientResult');
+            resultDiv.innerHTML = ''; // Clear previous results
+
+            // Find the patient with matching ID
+            for (let i = 0; i < patientsArray.length; i++) {
+                if (patientsArray[i].id === searchId) {
+                    let patient = patientsArray[i];
+                    resultDiv.innerHTML = `
+                        <div class="search-result-box">
+                            <p><strong>Patient ID:</strong> ${patient.id}</p>
+                            <p><strong>Name:</strong> ${patient.name}</p>
+                            <p><strong>Age:</strong> ${patient.age}</p>
+                            <p><strong>Disease:</strong> ${patient.disease}</p>
+                            <p><strong>Initial Bill:</strong> ${patient.initialBill}</p>
+                        </div>
+                    `;
+                    return;
+                }
+            }
+
+            // If patient not found, show message
+            resultDiv.innerHTML = '<p style="color: red;">Patient not found!</p>';
+        }
+
+        // Add event listener to form
+        document.getElementById('addPatientForm').addEventListener('submit', addNewPatient);
+
+        // Display patients when page loads
+        window.addEventListener('load', displayPatients);
+    </script>
+</body>
+</html>

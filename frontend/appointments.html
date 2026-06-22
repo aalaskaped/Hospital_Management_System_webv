@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments - Hospital Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar starts here -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <h1 class="navbar-title">Hospital Management System</h1>
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="navbar-link">Home</a></li>
+                <li><a href="doctors.html" class="navbar-link">Doctors</a></li>
+                <li><a href="patients.html" class="navbar-link">Patients</a></li>
+                <li><a href="appointments.html" class="navbar-link active">Appointments</a></li>
+                <li><a href="billing.html" class="navbar-link">Billing</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Navbar ends here -->
+
+    <!-- Main container starts here -->
+    <div class="main-container">
+        <!-- Page title starts here -->
+        <h2 class="page-title">Appointment Management</h2>
+        <!-- Page title ends here -->
+
+        <!-- Book Appointment section starts here -->
+        <div class="form-section">
+            <h3>Book New Appointment</h3>
+            
+            <!-- Form for booking appointment -->
+            <form id="addAppointmentForm" class="form">
+                <!-- Appointment ID input -->
+                <div class="form-group">
+                    <label for="appointmentId">Appointment ID:</label>
+                    <input type="text" id="appointmentId" placeholder="Enter Appointment ID" required>
+                </div>
+
+                <!-- Patient ID input -->
+                <div class="form-group">
+                    <label for="appointmentPatientId">Patient ID:</label>
+                    <input type="text" id="appointmentPatientId" placeholder="Enter Patient ID" required>
+                </div>
+
+                <!-- Doctor ID input -->
+                <div class="form-group">
+                    <label for="appointmentDoctorId">Doctor ID:</label>
+                    <input type="text" id="appointmentDoctorId" placeholder="Enter Doctor ID" required>
+                </div>
+
+                <!-- Appointment Date input -->
+                <div class="form-group">
+                    <label for="appointmentDate">Date:</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn">Book Appointment</button>
+            </form>
+            <!-- Form ends here -->
+        </div>
+        <!-- Book Appointment section ends here -->
+
+        <!-- View Appointments section starts here -->
+        <div class="table-section">
+            <h3>All Appointments</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient ID</th>
+                        <th>Doctor ID</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsTableBody">
+                    <!-- Appointments will be added here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <!-- View Appointments section ends here -->
+    </div>
+    <!-- Main container ends here -->
+
+    <!-- Script files -->
+    <script src="script.js"></script>
+    <script>
+        // Function to display all appointments in the table
+        function displayAppointments() {
+            let tableBody = document.getElementById('appointmentsTableBody');
+            tableBody.innerHTML = ''; // Clear the table first
+
+            // Loop through all appointments and add them to the table
+            for (let i = 0; i < appointmentsArray.length; i++) {
+                let appointment = appointmentsArray[i];
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${appointment.id}</td>
+                    <td>${appointment.patientId}</td>
+                    <td>${appointment.doctorId}</td>
+                    <td>${appointment.date}</td>
+                    <td>
+                        <button class="btn-delete" onclick="deleteAppointment('${appointment.id}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Function to book a new appointment
+        function addNewAppointment(event) {
+            event.preventDefault(); // Stop form from refreshing the page
+
+            // Get values from form
+            let appointmentId = document.getElementById('appointmentId').value;
+            let patientId = document.getElementById('appointmentPatientId').value;
+            let doctorId = document.getElementById('appointmentDoctorId').value;
+            let appointmentDate = document.getElementById('appointmentDate').value;
+
+            // Create a new appointment object
+            let newAppointment = {
+                id: appointmentId,
+                patientId: patientId,
+                doctorId: doctorId,
+                date: appointmentDate
+            };
+
+            // Add the new appointment to the array
+            appointmentsArray.push(newAppointment);
+
+            // Clear the form
+            document.getElementById('addAppointmentForm').reset();
+
+            // Show a message
+            alert('Appointment booked successfully!');
+
+            // Update the table
+            displayAppointments();
+        }
+
+        // Function to delete an appointment
+        function deleteAppointment(appId) {
+            // Ask user for confirmation
+            let confirmDelete = confirm('Are you sure you want to delete this appointment?');
+            
+            if (confirmDelete) {
+                // Find the appointment and remove from array
+                for (let i = 0; i < appointmentsArray.length; i++) {
+                    if (appointmentsArray[i].id === appId) {
+                        appointmentsArray.splice(i, 1); // Remove appointment at position i
+                        alert('Appointment deleted successfully!');
+                        displayAppointments(); // Update the table
+                        return;
+                    }
+                }
+            }
+        }
+
+        // Add event listener to form
+        document.getElementById('addAppointmentForm').addEventListener('submit', addNewAppointment);
+
+        // Display appointments when page loads
+        window.addEventListener('load', displayAppointments);
+    </script>
+</body>
+</html>
