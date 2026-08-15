@@ -34,12 +34,6 @@
             
             <!-- Form for adding doctor -->
             <form id="addDoctorForm" class="form">
-                <!-- Doctor ID input -->
-                <div class="form-group">
-                    <label for="doctorId">Doctor ID:</label>
-                    <input type="text" id="doctorId" placeholder="Enter Doctor ID" required>
-                </div>
-
                 <!-- Doctor Name input -->
                 <div class="form-group">
                     <label for="doctorName">Name:</label>
@@ -108,112 +102,8 @@
     <!-- Script files -->
     <script src="script.js"></script>
     <script>
-        // Function to display all doctors in the table
-        function displayDoctors() {
-            let tableBody = document.getElementById('doctorsTableBody');
-            tableBody.innerHTML = ''; // Clear the table first
-
-            // Loop through all doctors and add them to the table
-            for (let i = 0; i < doctorsArray.length; i++) {
-                let doctor = doctorsArray[i];
-                let row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${doctor.id}</td>
-                    <td>${doctor.name}</td>
-                    <td>${doctor.age}</td>
-                    <td>${doctor.specialization}</td>
-                    <td>${doctor.fees}</td>
-                    <td>
-                        <button class="btn-delete" onclick="deleteDoctor('${doctor.id}')">Delete</button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            }
-        }
-
-        // Function to add a new doctor
-        function addNewDoctor(event) {
-            event.preventDefault(); // Stop form from refreshing the page
-
-            // Get values from form
-            let doctorId = document.getElementById('doctorId').value;
-            let doctorName = document.getElementById('doctorName').value;
-            let doctorAge = document.getElementById('doctorAge').value;
-            let doctorSpec = document.getElementById('doctorSpecialization').value;
-            let doctorFees = document.getElementById('doctorFees').value;
-
-            // Create a new doctor object
-            let newDoctor = {
-                id: doctorId,
-                name: doctorName,
-                age: doctorAge,
-                specialization: doctorSpec,
-                fees: doctorFees
-            };
-
-            // Add the new doctor to the array
-            doctorsArray.push(newDoctor);
-
-            // Clear the form
-            document.getElementById('addDoctorForm').reset();
-
-            // Show a message
-            alert('Doctor added successfully!');
-
-            // Update the table
-            displayDoctors();
-        }
-
-        // Function to delete a doctor
-        function deleteDoctor(docId) {
-            // Ask user for confirmation
-            let confirmDelete = confirm('Are you sure you want to delete this doctor?');
-            
-            if (confirmDelete) {
-                // Find the doctor and remove from array
-                for (let i = 0; i < doctorsArray.length; i++) {
-                    if (doctorsArray[i].id === docId) {
-                        doctorsArray.splice(i, 1); // Remove doctor at position i
-                        alert('Doctor deleted successfully!');
-                        displayDoctors(); // Update the table
-                        return;
-                    }
-                }
-            }
-        }
-
-        // Function to search for a doctor
-        function searchDoctor() {
-            let searchId = document.getElementById('searchDoctorId').value;
-            let resultDiv = document.getElementById('searchDoctorResult');
-            resultDiv.innerHTML = ''; // Clear previous results
-
-            // Find the doctor with matching ID
-            for (let i = 0; i < doctorsArray.length; i++) {
-                if (doctorsArray[i].id === searchId) {
-                    let doctor = doctorsArray[i];
-                    resultDiv.innerHTML = `
-                        <div class="search-result-box">
-                            <p><strong>Doctor ID:</strong> ${doctor.id}</p>
-                            <p><strong>Name:</strong> ${doctor.name}</p>
-                            <p><strong>Age:</strong> ${doctor.age}</p>
-                            <p><strong>Specialization:</strong> ${doctor.specialization}</p>
-                            <p><strong>Consultation Fees:</strong> ${doctor.fees}</p>
-                        </div>
-                    `;
-                    return;
-                }
-            }
-
-            // If doctor not found, show message
-            resultDiv.innerHTML = '<p style="color: red;">Doctor not found!</p>';
-        }
-
-        // Add event listener to form
+        // Bind form submission to API function
         document.getElementById('addDoctorForm').addEventListener('submit', addNewDoctor);
-
-        // Display doctors when page loads
-        window.addEventListener('load', displayDoctors);
     </script>
 </body>
 </html>

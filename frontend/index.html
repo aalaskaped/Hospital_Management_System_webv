@@ -71,18 +71,5 @@
 
     <!-- Script file -->
     <script src="script.js"></script>
-    <script>
-        // Update dashboard cards when page loads
-        function updateDashboard() {
-            // Get the length of each array and display on cards
-            document.getElementById('totalDoctorsCard').textContent = doctorsArray.length;
-            document.getElementById('totalPatientsCard').textContent = patientsArray.length;
-            document.getElementById('totalAppointmentsCard').textContent = appointmentsArray.length;
-            document.getElementById('totalBillsCard').textContent = billsArray.length;
-        }
-
-        // Call updateDashboard when page loads
-        window.addEventListener('load', updateDashboard);
-    </script>
 </body>
 </html>

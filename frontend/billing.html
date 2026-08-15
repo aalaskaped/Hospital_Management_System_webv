@@ -54,8 +54,14 @@
 
                 <!-- Medicine Cost input -->
                 <div class="form-group">
-                    <label for="medicineCost">Medicine Cost:</label>
-                    <input type="number" id="medicineCost" placeholder="Enter Medicine Cost in Rupees" required>
+                    <label for="billMedicineCost">Medicine Cost:</label>
+                    <input type="number" id="billMedicineCost" placeholder="Enter Medicine Cost in Rupees" required>
+                </div>
+
+                <!-- Consultation Fee input -->
+                <div class="form-group">
+                    <label for="billConsultationFee">Consultation Fee:</label>
+                    <input type="number" id="billConsultationFee" placeholder="Enter Consultation Fee in Rupees" required>
                 </div>
 
                 <!-- Submit button -->
@@ -101,14 +107,14 @@
             <div class="compare-form">
                 <!-- Patient A input -->
                 <div class="form-group">
-                    <label for="patientAId">Patient A ID:</label>
-                    <input type="text" id="patientAId" placeholder="Enter Patient ID">
+                    <label for="comparePatientA">Patient A ID:</label>
+                    <input type="text" id="comparePatientA" placeholder="Enter Patient ID">
                 </div>
 
                 <!-- Patient B input -->
                 <div class="form-group">
-                    <label for="patientBId">Patient B ID:</label>
-                    <input type="text" id="patientBId" placeholder="Enter Patient ID">
+                    <label for="comparePatientB">Patient B ID:</label>
+                    <input type="text" id="comparePatientB" placeholder="Enter Patient ID">
                 </div>
 
                 <!-- Compare button -->
@@ -116,7 +122,7 @@
             </div>
 
             <!-- Comparison result -->
-            <div id="compareResult" class="compare-result"></div>
+            <div id="comparisonResult" class="compare-result"></div>
         </div>
         <!-- Compare Bills section ends here -->
     </div>
@@ -125,141 +131,7 @@
     <!-- Script files -->
     <script src="script.js"></script>
     <script>
-        // Function to display all bills in the table
-        function displayBills() {
-            let tableBody = document.getElementById('billsTableBody');
-            tableBody.innerHTML = ''; // Clear the table first
-
-            // Loop through all bills and add them to the table
-            for (let i = 0; i < billsArray.length; i++) {
-                let bill = billsArray[i];
-                let row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${bill.id}</td>
-                    <td>${bill.patientId}</td>
-                    <td>${bill.doctorId}</td>
-                    <td>${bill.medicineCost}</td>
-                    <td>${bill.consultationFee}</td>
-                    <td>${bill.total}</td>
-                `;
-                tableBody.appendChild(row);
-            }
-
-            // Update total bill amount
-            updateTotalBill();
-        }
-
-        // Function to update total bill amount
-        function updateTotalBill() {
-            let totalAmount = 0;
-
-            // Add all bills together
-            for (let i = 0; i < billsArray.length; i++) {
-                totalAmount = totalAmount + parseInt(billsArray[i].total);
-            }
-
-            // Display total
-            document.getElementById('totalBillAmount').textContent = 'Total: Rs. ' + totalAmount;
-        }
-
-        // Function to generate a bill
-        function generateNewBill(event) {
-            event.preventDefault(); // Stop form from refreshing the page
-
-            // Get values from form
-            let billId = document.getElementById('billId').value;
-            let patientId = document.getElementById('billPatientId').value;
-            let doctorId = document.getElementById('billDoctorId').value;
-            let medicineCost = document.getElementById('medicineCost').value;
-
-            // Find consultation fee from doctor
-            let consultationFee = 0;
-            for (let i = 0; i < doctorsArray.length; i++) {
-                if (doctorsArray[i].id === doctorId) {
-                    consultationFee = parseInt(doctorsArray[i].fees);
-                    break;
-                }
-            }
-
-            // Calculate total bill
-            let totalBill = parseInt(medicineCost) + consultationFee;
-
-            // Create a new bill object
-            let newBill = {
-                id: billId,
-                patientId: patientId,
-                doctorId: doctorId,
-                medicineCost: medicineCost,
-                consultationFee: consultationFee,
-                total: totalBill
-            };
-
-            // Add the new bill to the array
-            billsArray.push(newBill);
-
-            // Clear the form
-            document.getElementById('generateBillForm').reset();
-
-            // Show a message
-            alert('Bill generated successfully!\nTotal: Rs. ' + totalBill);
-
-            // Update the table
-            displayBills();
-        }
-
-        // Function to compare bills between two patients
-        function compareBills() {
-            let patientAId = document.getElementById('patientAId').value;
-            let patientBId = document.getElementById('patientBId').value;
-            let resultDiv = document.getElementById('compareResult');
-            resultDiv.innerHTML = ''; // Clear previous results
-
-            // Find total bill for patient A
-            let patientATotalBill = 0;
-            for (let i = 0; i < billsArray.length; i++) {
-                if (billsArray[i].patientId === patientAId) {
-                    patientATotalBill = patientATotalBill + parseInt(billsArray[i].total);
-                }
-            }
-
-            // Find total bill for patient B
-            let patientBTotalBill = 0;
-            for (let i = 0; i < billsArray.length; i++) {
-                if (billsArray[i].patientId === patientBId) {
-                    patientBTotalBill = patientBTotalBill + parseInt(billsArray[i].total);
-                }
-            }
-
-            // Determine who has higher bill
-            let higherPatient = '';
-            let difference = 0;
-
-            if (patientATotalBill > patientBTotalBill) {
-                higherPatient = 'Patient A';
-                difference = patientATotalBill - patientBTotalBill;
-            } else if (patientBTotalBill > patientATotalBill) {
-                higherPatient = 'Patient B';
-                difference = patientBTotalBill - patientATotalBill;
-            }
-
-            // Display results
-            if (patientATotalBill === 0 && patientBTotalBill === 0) {
-                resultDiv.innerHTML = '<p style="color: red;">No bills found for these patients!</p>';
-            } else {
-                resultDiv.innerHTML = `
-                    <div class="compare-result-box">
-                        <p><strong>Patient A (${patientAId}) Total Bill:</strong> Rs. ${patientATotalBill}</p>
-                        <p><strong>Patient B (${patientBId}) Total Bill:</strong> Rs. ${patientBTotalBill}</p>
-                        ${higherPatient ? `<p><strong>Higher Bill:</strong> ${higherPatient} (Difference: Rs. ${difference})</p>` : '<p><strong>Both have same bill amount</strong></p>'}
-                    </div>
-                `;
-            }
-        }
-
-        // Add event listener to form
-        document.getElementById('generateBillForm').addEventListener('submit', generateNewBill);
-
-        // Display bills when page loads
+        document.getElementById('generateBillForm').addEventListener('submit', generateBill);
         window.addEventListener('load', displayBills);
     </script>
 </body>
